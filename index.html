@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GovEase EA — East Africa's Governance Navigation Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:  #1B6B3A;
+      --gold:   #C8A84B;
+      --cream:  #F7F3EC;
+      --dark:   #0E2318;
+      --mid:    #2C5F2D;
+      --text:   #1A1A1A;
+      --muted:  #5A6B5B;
+      --white:  #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 5%;
+      background: rgba(14,35,24,.95);
+      backdrop-filter: blur(10px);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 900;
+      color: var(--gold);
+      letter-spacing: .02em;
+    }
+    .nav-logo span { color: var(--white); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,.75); text-decoration: none;
+      font-size: .88rem; font-weight: 500; letter-spacing: .04em;
+      text-transform: uppercase; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold); color: var(--dark);
+      padding: .55rem 1.4rem; border-radius: 4px;
+      text-decoration: none; font-weight: 500;
+      font-size: .88rem; letter-spacing: .04em;
+      text-transform: uppercase; transition: opacity .2s;
+    }
+    .nav-cta:hover { opacity: .85; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      background: var(--dark);
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 5% 5rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 70% 50%, rgba(27,107,58,.18) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(200,168,75,.08) 0%, transparent 60%);
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-tag {
+      display: inline-block;
+      border: 1px solid var(--gold); color: var(--gold);
+      font-size: .75rem; letter-spacing: .15em; text-transform: uppercase;
+      padding: .35rem .9rem; border-radius: 2px; margin-bottom: 1.8rem;
+    }
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      font-weight: 900; line-height: 1.1;
+      color: var(--white); margin-bottom: 1.5rem;
+    }
+    .hero-content h1 em { color: var(--gold); font-style: normal; }
+    .hero-content p {
+      color: rgba(255,255,255,.65); font-size: 1.1rem;
+      line-height: 1.75; max-width: 500px; margin-bottom: 2.5rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold); color: var(--dark);
+      padding: .85rem 2rem; border-radius: 4px;
+      text-decoration: none; font-weight: 500;
+      font-size: .95rem; transition: opacity .2s;
+    }
+    .btn-primary:hover { opacity: .85; }
+    .btn-outline {
+      border: 1.5px solid rgba(255,255,255,.3); color: var(--white);
+      padding: .85rem 2rem; border-radius: 4px;
+      text-decoration: none; font-size: .95rem; transition: border-color .2s;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    .hero-stats {
+      position: relative; z-index: 1;
+      display: grid; grid-template-rows: repeat(3, auto);
+      gap: 1.5rem; padding-left: 4rem;
+    }
+    .stat-card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-left: 3px solid var(--gold);
+      padding: 1.5rem 2rem; border-radius: 4px;
+      backdrop-filter: blur(6px);
+      opacity: 0; transform: translateX(30px);
+      animation: slideIn .6s forwards;
+    }
+    .stat-card:nth-child(1) { animation-delay: .3s; }
+    .stat-card:nth-child(2) { animation-delay: .5s; }
+    .stat-card:nth-child(3) { animation-delay: .7s; }
+    @keyframes slideIn { to { opacity: 1; transform: translateX(0); } }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem; font-weight: 900; color: var(--gold); line-height: 1;
+    }
+    .stat-label { color: rgba(255,255,255,.6); font-size: .85rem; margin-top: .4rem; }
+    .stat-source { color: rgba(255,255,255,.3); font-size: .72rem; margin-top: .3rem; }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 6rem 5%; }
+    .section-label {
+      font-size: .75rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--gold); font-weight: 500; margin-bottom: .8rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900;
+      color: var(--dark); line-height: 1.15; margin-bottom: 1.2rem;
+    }
+    .section-sub {
+      color: var(--muted); font-size: 1.05rem;
+      line-height: 1.75; max-width: 640px;
+    }
+
+    /* ── PROBLEM ── */
+    #problem { background: var(--white); }
+    .problem-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.5rem; margin-top: 3.5rem;
+    }
+    .problem-card {
+      padding: 2rem; border-radius: 6px;
+      border-top: 3px solid var(--green);
+      background: var(--cream);
+      transition: transform .25s;
+    }
+    .problem-card:hover { transform: translateY(-4px); }
+    .problem-icon { font-size: 2rem; margin-bottom: 1.2rem; }
+    .problem-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--dark); margin-bottom: .75rem;
+    }
+    .problem-card p { color: var(--muted); font-size: .92rem; line-height: 1.7; }
+
+    /* ── VALUE PROP ── */
+    #value { background: var(--dark); }
+    #value .section-title { color: var(--white); }
+    #value .section-sub { color: rgba(255,255,255,.55); }
+    .value-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2rem; margin-top: 3.5rem;
+    }
+    .value-card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      padding: 2.5rem; border-radius: 6px;
+      transition: border-color .25s;
+    }
+    .value-card:hover { border-color: var(--gold); }
+    .value-card .vc-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem; font-weight: 900; color: var(--gold);
+      line-height: 1; margin-bottom: 1rem;
+    }
+    .value-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; color: var(--white); margin-bottom: .8rem;
+    }
+    .value-card p { color: rgba(255,255,255,.55); font-size: .9rem; line-height: 1.7; }
+
+    /* ── WHO WE SERVE ── */
+    #segments { background: var(--cream); }
+    .segments-wrapper {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center; margin-top: 3rem;
+    }
+    .segment-list { list-style: none; display: flex; flex-direction: column; gap: 1.2rem; }
+    .segment-list li {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.2rem 1.5rem; background: var(--white);
+      border-radius: 6px; border-left: 4px solid var(--green);
+    }
+    .seg-icon { font-size: 1.6rem; flex-shrink: 0; }
+    .seg-info strong { display: block; font-weight: 500; color: var(--dark); margin-bottom: .3rem; }
+    .seg-info span { font-size: .88rem; color: var(--muted); line-height: 1.5; }
+    .channels-box {
+      background: var(--dark); border-radius: 8px;
+      padding: 2.5rem; color: var(--white);
+    }
+    .channels-box h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; color: var(--gold); margin-bottom: 1.5rem;
+    }
+    .channel-item {
+      display: flex; align-items: center; gap: .9rem;
+      padding: .75rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .channel-item:last-child { border-bottom: none; }
+    .ch-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+    .channel-item span { font-size: .9rem; color: rgba(255,255,255,.7); }
+
+    /* ── IMPACT ── */
+    #impact { background: var(--green); color: var(--white); }
+    #impact .section-label { color: var(--gold); }
+    #impact .section-title { color: var(--white); }
+    .impact-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem; margin-top: 3.5rem;
+    }
+    .impact-card {
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      padding: 2rem 1.5rem; border-radius: 6px; text-align: center;
+    }
+    .impact-card .big {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem; font-weight: 900; color: var(--gold);
+      line-height: 1; margin-bottom: .6rem;
+    }
+    .impact-card p { font-size: .88rem; color: rgba(255,255,255,.75); line-height: 1.5; }
+
+    /* ── FINANCING ── */
+    #financing { background: var(--white); }
+    .finance-stages {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2rem; margin-top: 3.5rem;
+    }
+    .stage {
+      border: 1px solid #E0D8CD;
+      border-radius: 8px; overflow: hidden;
+    }
+    .stage-header {
+      background: var(--dark); padding: 1.2rem 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .stage-n {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; font-weight: 900; color: var(--gold);
+    }
+    .stage-header h3 { color: var(--white); font-size: 1rem; font-weight: 500; }
+    .stage-body { padding: 1.5rem; }
+    .stage-body p { font-size: .88rem; color: var(--muted); line-height: 1.7; margin-bottom: .8rem; }
+    .stage-body strong { color: var(--dark); }
+
+    /* ── ASK ── */
+    #ask {
+      background: var(--dark);
+      text-align: center;
+    }
+    #ask .section-title { color: var(--white); }
+    #ask .section-sub { color: rgba(255,255,255,.55); margin: 0 auto 3rem; }
+    .ask-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2rem; max-width: 900px; margin: 0 auto;
+    }
+    .ask-card {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.1);
+      padding: 2.5rem 2rem; border-radius: 6px;
+    }
+    .ask-card .ask-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .ask-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; color: var(--gold); margin-bottom: .7rem;
+    }
+    .ask-card p { font-size: .88rem; color: rgba(255,255,255,.55); line-height: 1.6; }
+
+    .ask-amount {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 7vw, 6rem); font-weight: 900;
+      color: var(--gold); margin: 3rem 0 .5rem;
+    }
+    .ask-sub { color: rgba(255,255,255,.5); font-size: .95rem; margin-bottom: 3rem; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--green); text-align: center; padding: 5rem 5%; }
+    #contact .section-title { color: var(--white); }
+    #contact .section-sub { color: rgba(255,255,255,.7); margin: 0 auto 2.5rem; }
+    .contact-email {
+      display: inline-block;
+      background: var(--gold); color: var(--dark);
+      padding: 1rem 2.5rem; border-radius: 4px;
+      text-decoration: none; font-weight: 500;
+      font-size: 1rem; transition: opacity .2s;
+    }
+    .contact-email:hover { opacity: .85; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark); padding: 2rem 5%;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    footer .f-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; color: var(--gold); font-weight: 900;
+    }
+    footer .f-logo span { color: var(--white); }
+    footer p { color: rgba(255,255,255,.3); font-size: .8rem; }
+    footer .f-url { color: rgba(255,255,255,.4); font-size: .8rem; }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .7s, transform .7s;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:900px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-stats { padding-left: 0; margin-top: 3rem; }
+      .problem-grid, .value-grid, .impact-grid,
+      .finance-stages, .ask-grid { grid-template-columns: 1fr; }
+      .segments-wrapper { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">GovEase<span> EA</span></div>
+  <ul class="nav-links">
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#value">Solution</a></li>
+    <li><a href="#segments">Who We Serve</a></li>
+    <li><a href="#impact">Impact</a></li>
+    <li><a href="#financing">Financing</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get in Touch</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-tag">East Africa · Governance · Opportunity</div>
+    <h1>Making the formal economy accessible to <em>every entrepreneur.</em></h1>
+    <p>GovEase EA is East Africa's one-stop governance and opportunity navigation platform — plain-language guidance, funding discovery, and regulatory clarity for the region's 400M+ youth.</p>
+    <div class="hero-btns">
+      <a href="#value" class="btn-primary">Explore the Solution</a>
+      <a href="#ask" class="btn-outline">Investor Info</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-card">
+      <div class="stat-num">70%</div>
+      <div class="stat-label">of East African entrepreneurs cite lack of governance info as a key barrier</div>
+      <div class="stat-source">World Bank, 2020</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">400M+</div>
+      <div class="stat-label">East Africans under 35 by 2030 — the generation we serve</div>
+      <div class="stat-source">UNDP, 2021</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">$3.4T</div>
+      <div class="stat-label">Projected GDP benefit of AfCFTA — the opportunity we unlock</div>
+      <div class="stat-source">African Union, 2018</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="section-label fade-up">The Challenge</div>
+  <h2 class="section-title fade-up">The system was never built for them.</h2>
+  <p class="section-sub fade-up">Young entrepreneurs across East Africa are locked out of the formal economy — not from lack of ambition, but from a maze of fragmented, inaccessible, outdated information.</p>
+  <div class="problem-grid">
+    <div class="problem-card fade-up">
+      <div class="problem-icon">🗂️</div>
+      <h3>Fragmented Information</h3>
+      <p>Regulatory guidance, funding programmes, and cross-border requirements are spread across dozens of sites — mostly out of date or conflicting with each other.</p>
+    </div>
+    <div class="problem-card fade-up">
+      <div class="problem-icon">🔍</div>
+      <h3>Invisible Opportunities</h3>
+      <p>Grants, youth programmes, and EAC initiatives go unclaimed because entrepreneurs never hear about them in time. The opportunity exists. The awareness does not.</p>
+    </div>
+    <div class="problem-card fade-up">
+      <div class="problem-icon">💸</div>
+      <h3>Expensive Workarounds</h3>
+      <p>Those who need answers turn to consultants they can't afford — or simply walk away. Both outcomes represent an enormous, avoidable economic cost to the region.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE PROP -->
+<section id="value">
+  <div class="section-label fade-up">Our Solution</div>
+  <h2 class="section-title fade-up">One platform. Three pillars.</h2>
+  <p class="section-sub fade-up">GovEase EA provides a trusted, plain-language guide to navigating governance processes — built for East Africa's entrepreneurs, students, and institutions.</p>
+  <div class="value-grid">
+    <div class="value-card fade-up">
+      <div class="vc-num">01</div>
+      <h3>Clarity</h3>
+      <p>Step-by-step, plain-language instruction on institutional and regulatory processes — readable by a first-time entrepreneur, not just a lawyer.</p>
+    </div>
+    <div class="value-card fade-up">
+      <div class="vc-num">02</div>
+      <h3>Discovery</h3>
+      <p>A single reliable source for funding deadlines, youth programmes, and cross-border requirements — surfaced before the window closes.</p>
+    </div>
+    <div class="value-card fade-up">
+      <div class="vc-num">03</div>
+      <h3>Confidence</h3>
+      <p>We ensure the formal economy feels accessible and conquerable — so users see themselves as technically capable, not just technically connected.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHO WE SERVE -->
+<section id="segments">
+  <div class="section-label fade-up">Who We Serve</div>
+  <h2 class="section-title fade-up">Built for East Africa's builders.</h2>
+  <div class="segments-wrapper">
+    <ul class="segment-list">
+      <li class="fade-up">
+        <div class="seg-icon">🎓</div>
+        <div class="seg-info">
+          <strong>Youth 18–40</strong>
+          <span>Students, graduates, and first-time entrepreneurs navigating the formal economy for the first time.</span>
+        </div>
+      </li>
+      <li class="fade-up">
+        <div class="seg-icon">🏪</div>
+        <div class="seg-info">
+          <strong>SMEs</strong>
+          <span>Small businesses navigating cross-border trade, licensing, and EAC compliance requirements.</span>
+        </div>
+      </li>
+      <li class="fade-up">
+        <div class="seg-icon">🌍</div>
+        <div class="seg-info">
+          <strong>NGOs & Development Organisations</strong>
+          <span>Organisations that need accurate, current governance data to serve their own beneficiaries.</span>
+        </div>
+      </li>
+      <li class="fade-up">
+        <div class="seg-icon">🏛️</div>
+        <div class="seg-info">
+          <strong>Government Agencies</strong>
+          <span>Public bodies seeking to improve citizen-facing communication and accessibility of services.</span>
+        </div>
+      </li>
+    </ul>
+    <div class="channels-box fade-up">
+      <h3>How We Reach Them</h3>
+      <div class="channel-item"><div class="ch-dot"></div><span>WhatsApp Business API — primary distribution</span></div>
+      <div class="channel-item"><div class="ch-dot"></div><span>Mobile-first platform website</span></div>
+      <div class="channel-item"><div class="ch-dot"></div><span>University campuses & entrepreneurship hubs</span></div>
+      <div class="channel-item"><div class="ch-dot"></div><span>NGO and government referral networks</span></div>
+      <div class="channel-item"><div class="ch-dot"></div><span>Regional youth summits and trade events</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="impact">
+  <div class="section-label fade-up">Market & Social Impact</div>
+  <h2 class="section-title fade-up">The scale of the opportunity.</h2>
+  <div class="impact-grid">
+    <div class="impact-card fade-up">
+      <div class="big">400M+</div>
+      <p>East Africans under 35 by 2030 — our primary audience</p>
+    </div>
+    <div class="impact-card fade-up">
+      <div class="big">78%</div>
+      <p>Entrepreneurs currently lack adequate regulatory guidance</p>
+    </div>
+    <div class="impact-card fade-up">
+      <div class="big">60–70%</div>
+      <p>Estimated reduction in time wasted on institutional navigation</p>
+    </div>
+    <div class="impact-card fade-up">
+      <div class="big">$3.4T</div>
+      <p>AfCFTA projected GDP benefit — the economy we help unlock</p>
+    </div>
+  </div>
+</section>
+
+<!-- FINANCING -->
+<section id="financing">
+  <div class="section-label fade-up">Financing Strategy</div>
+  <h2 class="section-title fade-up">Blended finance for lasting impact.</h2>
+  <p class="section-sub fade-up">We combine impact grants, earned institutional revenue, and social impact investment into a model designed for sustainability — not donor dependency.</p>
+  <div class="finance-stages">
+    <div class="stage fade-up">
+      <div class="stage-header">
+        <div class="stage-n">1</div>
+        <h3>Impact Grants</h3>
+      </div>
+      <div class="stage-body">
+        <p><strong>Why:</strong> GovEase EA is a social enterprise. Our mission aligns with development funders — and grants require no equity dilution.</p>
+        <p><strong>Who:</strong> GIZ Private Sector Fund, FONERWA, Mastercard Foundation, Tony Elumelu Foundation.</p>
+        <p><strong>How:</strong> Grant proposals backed by MOM Test data and early user traction.</p>
+      </div>
+    </div>
+    <div class="stage fade-up">
+      <div class="stage-header">
+        <div class="stage-n">2</div>
+        <h3>Earned Revenue</h3>
+      </div>
+      <div class="stage-body">
+        <p><strong>Why:</strong> Training fees and institutional contracts provide sustainable, mission-aligned cash flow independent of donor cycles.</p>
+        <p><strong>Who:</strong> Rwanda Development Board, regional NGOs, EAC organisations, SME accelerators.</p>
+        <p><strong>How:</strong> First institutional contract signed by Month 6 via the RDB partnership pipeline.</p>
+      </div>
+    </div>
+    <div class="stage fade-up">
+      <div class="stage-header">
+        <div class="stage-n">3</div>
+        <h3>Impact Investment</h3>
+      </div>
+      <div class="stage-body">
+        <p><strong>Why:</strong> Impact investors pursue both social outcomes and returns — once we have demonstrated users and revenue.</p>
+        <p><strong>Who:</strong> Omidyar Network Africa, Novastar Ventures, AlphaMundi, Acumen Fund.</p>
+        <p><strong>How:</strong> Investor-ready reporting via Zoho CRM data and tracked impact metrics from Day 1.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ASK -->
+<section id="ask">
+  <div class="section-label fade-up">The Ask</div>
+  <h2 class="section-title fade-up">Partner with us.</h2>
+  <p class="section-sub fade-up">The problem is proven. The market is massive. No direct competitor offers this in one place. We're ready to build.</p>
+  <div class="ask-amount fade-up">$50,000</div>
+  <p class="ask-sub fade-up">Seed grant or impact investment · 12 months of operations</p>
+  <div class="ask-grid">
+    <div class="ask-card fade-up">
+      <div class="ask-icon">💰</div>
+      <h3>Funding</h3>
+      <p>$50,000 seed grant or impact investment to fund team, platform development, and the first 12 months of operations across Rwanda and Kenya.</p>
+    </div>
+    <div class="ask-card fade-up">
+      <div class="ask-icon">🤝</div>
+      <h3>Partnership</h3>
+      <p>Institutional co-signing with RDB or GIZ to unlock credibility, regulatory access, and accelerate our first institutional contracts.</p>
+    </div>
+    <div class="ask-card fade-up">
+      <div class="ask-icon">🌐</div>
+      <h3>Network Access</h3>
+      <p>Introductions to EAC-affiliated youth programmes and NGO networks to accelerate our reach across East Africa.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label fade-up">Get In Touch</div>
+  <h2 class="section-title fade-up">Let's build East Africa's governance future.</h2>
+  <p class="section-sub fade-up">We'd love to connect with investors, partners, and institutions who share our mission. Reach out directly to the founding team.</p>
+  <a href="mailto:achiq.kalimba@alueducation.org" class="contact-email fade-up">achiq.kalimba@alueducation.org</a>
+  <p style="color:rgba(255,255,255,.4);margin-top:1.5rem;font-size:.85rem;">www.govease-ea.com</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">GovEase<span> EA</span></div>
+  <p>© 2025 GovEase EA · African Leadership University</p>
+  <span class="f-url">www.govease-ea.com</span>
+</footer>
+
+<script>
+  // Scroll fade-up observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
