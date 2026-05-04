@@ -582,21 +582,79 @@
   <h2 class="section-title fade-up">Let's build East Africa's governance future.</h2>
   <p class="section-sub fade-up">We'd love to connect with investors, partners, and institutions who share our mission. Reach out directly to the founding team.</p>
   <div style="display:flex; gap:3rem; justify-content:center; flex-wrap:wrap; margin-bottom:2.5rem;">
-  
+
   <!-- Achiq -->
-  <div style="text-align:center;">
-    <img src="https://raw.githubusercontent.com/achiqkalimba-hue/govease-ea/main/Achiq-cropped-Headshot.jpeg" alt="Achiq Ganza Kalimba" style="width:400px; height:500px; object-fit:cover; border-radius:50%; border:4px solid #C8A84B; display:block; margin:0 auto 1rem;">
+  <div onclick="document.getElementById('modal-achiq').style.display='flex'" style="text-align:center; cursor:pointer;">
+    <img src="https://raw.githubusercontent.com/achiqkalimba-hue/govease-ea/main/Achiq-cropped-Headshot.jpeg" alt="Achiq Ganza Kalimba" style="width:220px; height:220px; object-fit:cover; border-radius:50%; border:4px solid #C8A84B; display:block; margin:0 auto 1rem; transition:transform .2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
     <p style="color:#ffffff; font-weight:600; font-size:1.1rem; margin-bottom:.3rem;">Achiq Ganza Kalimba</p>
     <p style="color:#C8A84B; font-size:.9rem; letter-spacing:.08em; text-transform:uppercase;">Founder & CEO</p>
+    <p style="color:rgba(255,255,255,.4); font-size:.8rem; margin-top:.5rem;">Click to learn more</p>
   </div>
 
   <!-- Jeni -->
-  <div style="text-align:center;">
-    <img src="https://raw.githubusercontent.com/achiqkalimba-hue/govease-ea/main/Christiane-Headshot.jpeg" alt="Jeni Christiane Rwaka" style="width:400px; height:500px; object-fit:cover; border-radius:50%; border:4px solid #C8A84B; display:block; margin:0 auto 1rem;">
+  <div onclick="document.getElementById('modal-jeni').style.display='flex'" style="text-align:center; cursor:pointer;">
+    <img src="https://raw.githubusercontent.com/achiqkalimba-hue/govease-ea/main/Christiane-Headshot.jpeg" alt="Jeni Christiane Rwaka" style="width:220px; height:220px; object-fit:cover; border-radius:50%; border:4px solid #C8A84B; display:block; margin:0 auto 1rem; transition:transform .2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
     <p style="color:#ffffff; font-weight:600; font-size:1.1rem; margin-bottom:.3rem;">Jeni Christiane Rwaka</p>
     <p style="color:#C8A84B; font-size:.9rem; letter-spacing:.08em; text-transform:uppercase;">Chief Advisor</p>
+    <p style="color:rgba(255,255,255,.4); font-size:.8rem; margin-top:.5rem;">Click to learn more</p>
   </div>
 
+</div>
+
+<!-- MODAL: Achiq -->
+<div id="modal-achiq" onclick="this.style.display='none'" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:999; align-items:center; justify-content:center; padding:2rem;">
+  <div onclick="event.stopPropagation()" style="background:#0E2318; border:1px solid #C8A84B; border-radius:12px; max-width:500px; width:100%; padding:2.5rem; position:relative;">
+    <button onclick="document.getElementById('modal-achiq').style.display='none'" style="position:absolute; top:1rem; right:1.2rem; background:none; border:none; color:#C8A84B; font-size:1.5rem; cursor:pointer;">✕</button>
+    <img src="https://raw.githubusercontent.com/achiqkalimba-hue/govease-ea/main/Achiq-cropped-Headshot.jpeg" style="width:90px; height:90px; border-radius:50%; object-fit:cover; border:3px solid #C8A84B; margin-bottom:1.2rem;">
+    <h3 style="color:#ffffff; font-family:'Playfair Display',serif; font-size:1.4rem; margin-bottom:.3rem;">Achiq Ganza Kalimba</h3>
+    <p style="color:#C8A84B; font-size:.85rem; letter-spacing:.1em; text-transform:uppercase; margin-bottom:1.5rem;">Founder & CEO</p>
+    <table style="width:100%; border-collapse:collapse; font-size:.88rem;">
+      <tr style="border-bottom:1px solid rgba(255,255,255,.1);">
+        <td style="color:#C8A84B; padding:.7rem .5rem; font-weight:600; width:35%;">Education</td>
+        <td style="color:rgba(255,255,255,.75); padding:.7rem .5rem;">African Leadership University, Kigali — Bachelor's in Entrepreneurial Leadership (Expected 2028). Previously, Diploma in Business Management & Entrepreneurship, IBT College, Toronto.</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,.1);">
+        <td style="color:#C8A84B; padding:.7rem .5rem; font-weight:600;">Experience</td>
+        <td style="color:rgba(255,255,255,.75); padding:.7rem .5rem;">Digital Marketing Intern at Bank of Kigali. Previously Sales & Marketing Intern at Essoil Rwanda, Procurement Intern at Songa Africa, and Legal Intern at Trinity Lawyers.</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,.1);">
+        <td style="color:#C8A84B; padding:.7rem .5rem; font-weight:600;">Skills</td>
+        <td style="color:rgba(255,255,255,.75); padding:.7rem .5rem;">Marketing, Sales, Leadership, Procurement, Critical Thinking. Certified in Digital Marketing (Google) and Building Startups in Emerging Markets (UCT).</td>
+      </tr>
+      <tr>
+        <td style="color:#C8A84B; padding:.7rem .5rem; font-weight:600;">Mission</td>
+        <td style="color:rgba(255,255,255,.75); padding:.7rem .5rem;">To make East Africa's formal economy accessible to every young entrepreneur — starting with the information gap that holds them back.</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- MODAL: Jeni -->
+<div id="modal-jeni" onclick="this.style.display='none'" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:999; align-items:center; justify-content:center; padding:2rem;">
+  <div onclick="event.stopPropagation()" style="background:#0E2318; border:1px solid #C8A84B; border-radius:12px; max-width:500px; width:100%; padding:2.5rem; position:relative;">
+    <button onclick="document.getElementById('modal-jeni').style.display='none'" style="position:absolute; top:1rem; right:1.2rem; background:none; border:none; color:#C8A84B; font-size:1.5rem; cursor:pointer;">✕</button>
+    <img src="https://raw.githubusercontent.com/achiqkalimba-hue/govease-ea/main/Christiane-Headshot.jpeg" style="width:90px; height:90px; border-radius:50%; object-fit:cover; border:3px solid #C8A84B; margin-bottom:1.2rem;">
+    <h3 style="color:#ffffff; font-family:'Playfair Display',serif; font-size:1.4rem; margin-bottom:.3rem;">Jeni Christiane Rwaka</h3>
+    <p style="color:#C8A84B; font-size:.85rem; letter-spacing:.1em; text-transform:uppercase; margin-bottom:1.5rem;">Chief Advisor</p>
+    <table style="width:100%; border-collapse:collapse; font-size:.88rem;">
+      <tr style="border-bottom:1px solid rgba(255,255,255,.1);">
+        <td style="color:#C8A84B; padding:.7rem .5rem; font-weight:600; width:35%;">Education</td>
+        <td style="color:rgba(255,255,255,.75); padding:.7rem .5rem;">BS in Psychology (Honors), Grand Canyon University, Phoenix — GPA 3.75, Faculty Scholarship Recipient. Entrepreneurship & Leadership Certificate, Swiss Education Academy, Montreux.</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,.1);">
+        <td style="color:#C8A84B; padding:.7rem .5rem; font-weight:600;">Experience</td>
+        <td style="color:rgba(255,255,255,.75); padding:.7rem .5rem;">Retail Operations Intern at Haute Baso, Kigali. Student Worker at Aramark, recognised as Employee of the Week. Active member of Honors Society and Women in Business.</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,.1);">
+        <td style="color:#C8A84B; padding:.7rem .5rem; font-weight:600;">Skills</td>
+        <td style="color:rgba(255,255,255,.75); padding:.7rem .5rem;">Creative problem-solving, Leadership, Content Creation, Social Media Management. Fluent in French, English, Kinyarwanda and conversational Swahili.</td>
+      </tr>
+      <tr>
+        <td style="color:#C8A84B; padding:.7rem .5rem; font-weight:600;">Mission</td>
+        <td style="color:rgba(255,255,255,.75); padding:.7rem .5rem;">To apply psychology and entrepreneurial thinking at the intersection of human well-being and governance — advising GovEase EA to stay people-centred at every step.</td>
+      </tr>
+    </table>
+  </div>
 </div>
 <a href="mailto:achiq.kalimba@alueducation.org" class="contact-email fade-up">achiqkalimba@gmail.com</a>
   <p style="color:rgba(255,255,255,.4);margin-top:1.5rem;font-size:.85rem;">www.govease-ea.com</p>
